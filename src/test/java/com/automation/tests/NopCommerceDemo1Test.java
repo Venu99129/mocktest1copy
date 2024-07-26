@@ -1,8 +1,8 @@
 package com.automation.tests;
 
+import com.automation.utils.AllureReportManager;
 import com.automation.utils.ExtendManager;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -17,14 +17,15 @@ public class NopCommerceDemo1Test extends BaseTest{
         ExtentTest test = ExtendManager.getTest();
         homePage.getIntoHomePage();
         Assert.assertTrue(homePage.verifyHomePage());
-        test.addScreenCaptureFromPath(takeScreenShot());
+        ExtendManager.addScreenshot();
 
         homePage.clickOnRegisterLink();
 
         Assert.assertTrue(registerPage.verifyRegisterPage());
-        test.addScreenCaptureFromPath(takeScreenShot());
+        ExtendManager.addScreenshot();
 
         test.info("filling register page details");
+        AllureReportManager.attachLog("filling register page details");
 
         registerPage.selectGenderAsMale();
         registerPage.fillOnFirstNameInput("user.firstName");
@@ -39,9 +40,12 @@ public class NopCommerceDemo1Test extends BaseTest{
 
         registerPage.clickOnRegisterButton();
 
-        Assert.assertTrue(registerPage.verifyRegistration());
+        AllureReportManager.attachLog("exploiting to failing report");
+        Assert.assertTrue(!registerPage.verifyRegistration());
         test.info("test successfully registered");
-        test.addScreenCaptureFromPath(takeScreenShot() );
+        AllureReportManager.attachLog("test successfully registered");
+
+        ExtendManager.addScreenshot();
 
 
     }
@@ -63,6 +67,6 @@ public class NopCommerceDemo1Test extends BaseTest{
 
         test.info("we are success login ");
 
-        Assert.assertTrue(homePage.verifyHomePage());
+        Assert.assertTrue(!homePage.verifyHomePage());
     }
 }

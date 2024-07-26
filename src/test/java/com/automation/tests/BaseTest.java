@@ -49,19 +49,6 @@ public class BaseTest extends ExtendManager {
         DriverManager.getDriver().quit();
     }
 
-    public static String takeScreenShot() throws IOException {
-        TakesScreenshot shot = (TakesScreenshot) DriverManager.getDriver();
 
-        File file = shot.getScreenshotAs(OutputType.FILE);
-        Random random = new Random();
-        int num = random.nextInt(100000)+1;
-
-        String filepath = "src/test/resources/screenshots/img_"+num+".png";
-
-        FileUtils.copyFile(file, new File(filepath));
-
-        return System.getProperty("user.dir")+"/"+filepath;
-
-    }
 
 }

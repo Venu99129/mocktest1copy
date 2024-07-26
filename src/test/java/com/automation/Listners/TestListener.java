@@ -30,7 +30,8 @@ public class TestListener implements ITestListener {
     @Override
     public void onTestFailure(ITestResult result) {
         try {
-            test.addScreenCaptureFromPath(BaseTest.takeScreenShot());
+            ExtendManager.addScreenshot();
+            ExtendManager.getTest().info(result.getThrowable().getMessage());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

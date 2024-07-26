@@ -23,6 +23,6 @@ public class LoginStep {
 
     @And("user click on login button")
     public void userClickOnLoginButton() {
-       
+       loginPage.clickOnLoginButton();
     }
 }
