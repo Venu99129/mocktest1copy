@@ -2,21 +2,19 @@ package com.automation.steps;
 
 import com.automation.utils.ConfigReader;
 import com.automation.utils.DriverManager;
-import com.automation.utils.EmailProvider;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-
+import com.automation.utils.CucmberReportManager;
 import java.io.IOException;
-import java.sql.SQLOutput;
+
 
 public class Hooks {
 
     @Before
     public void setUp(Scenario scenario) throws IOException {
         System.out.println("starting scenario "+ scenario.getName());
+        CucmberReportManager.setScenario(scenario);
         ConfigReader.init();
         DriverManager.inti();
     }
@@ -24,15 +22,11 @@ public class Hooks {
     @After
     public void cleanUp(Scenario scenario) {
         if(scenario.isFailed()){
-            scenario.attach(takeScreenShot(),"image/png"," Failed Snap");
+            CucmberReportManager.addaScreenshot();
         }
         DriverManager.getDriver().quit();
     }
 
-    public byte[] takeScreenShot(){
-        TakesScreenshot ts = (TakesScreenshot) DriverManager.getDriver();
-        byte[] screenshot = ts.getScreenshotAs(OutputType.BYTES);
-        return screenshot;
-    }
+
 
 }
